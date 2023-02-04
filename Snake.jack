@@ -16,9 +16,9 @@ class Snake {
     }
 
     method void dispose() {
-        var Snake snake;
-        let snake = tail[0];
-        do snake.dispose();
+        var Square square;
+        let square = tail[0];
+        do square.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -41,10 +41,20 @@ class Snake {
     }
 
     method void setPosition(int argX, int argY) {
+        var int prevX;
+        var int prevY;
+        var Square square;
+
+        let prevX = x;
+        let prevY = y;
+
         do erase();
         let x = argX;
         let y = argY;
         do draw();
+
+        let square = tail[0];
+        do square.setPosition(prevX, prevY);
 
         return;
     }
