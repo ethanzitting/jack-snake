@@ -16,7 +16,7 @@ class Link {
         do draw();
 
         if (descendants > 0) {
-            let child = Link.new(x - size, y, descendants - 1);
+            let child = Link.new(x, y, descendants - 1);
         }
 
         return this;
@@ -24,8 +24,11 @@ class Link {
 
     method void addLink() {
         if (descendants = 0) {
-            let child = Link.new(x - size, y, 0);
+            let child = Link.new(x, y, 0);
+            let descendants = descendants + 1;
+            return;
         }
+        do child.addLink();
         let descendants = descendants + 1;
         return;
     }

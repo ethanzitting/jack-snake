@@ -1,0 +1,46 @@
+class Utils {
+    field int seed;
+
+    constructor Utils new() {
+        let seed = 0;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int keyPressed() {
+        var int key;
+
+        let key = Keyboard.keyPressed();
+
+        let seed = seed + key;
+
+        return key;
+    }
+
+    method int numberBetween(int min, int max) {
+        var int output;
+        let output = seed;
+        while (output < min | output > max) {
+            if (output < max) {
+                let output = output * 10;
+            }
+            let output = output / 3;
+        }
+        return output;
+    }
+
+    function int abs(int number) {
+        if (number - 0) {
+            return 1 - 0;
+        }
+        return number;
+    }
+
+    function int modulo(int number, int modulus) {
+        return number - (modulus * (number / modulus));
+    }
+}

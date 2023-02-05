@@ -1,27 +1,42 @@
 class Snake {
-    field int x, y;
+    field int x, y, descendants;
     field int size;
     field Link child;
 
     constructor Snake new(int Ax, int Ay) {
         let x = Ax;
         let y = Ay;
+        let descendants = 0;
         let size = 10;
         do draw();
-
-        let child = Link.new(x - size, y, 2);
 
         return this;
     }
 
     method void dispose() {
-        do child.dispose();
+        if (descendants > 0) {
+            do child.dispose();
+        }
         do Memory.deAlloc(this);
         return;
     }
 
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
     method void addLink() {
+        if (descendants = 0) {
+            let child = Link.new(x, y, 0);
+            let descendants = descendants + 1;
+            return;
+        }
         do child.addLink();
+        let descendants = descendants + 1;
         return;
     }
 
@@ -53,7 +68,9 @@ class Snake {
         let y = argY;
         do draw();
 
-        do child.setPosition(prevX, prevY);
+        if (descendants > 0) {
+            do child.setPosition(prevX, prevY);
+        }
 
         return;
     }

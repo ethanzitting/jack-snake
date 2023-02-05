@@ -1,7 +1,9 @@
 class Mouse {
     field int x, y, size;
+    field Utils utils;
 
-    constructor Mouse new(int newX, int newY) {
+    constructor Mouse new(Utils newUtils, int newX, int newY) {
+        let utils = newUtils;
         let x = newX;
         let y = newY;
 
@@ -17,7 +19,25 @@ class Mouse {
         return;
     }
 
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
     method void relocate() {
+        let x = (utils.numberBetween(3, 49) * 10);
+        let y = (utils.numberBetween(3, 22) * 10);
+
+        do Output.printInt(x);
+        do Output.println();
+
+        do Output.printInt(y);
+        do Output.println();
+
+        do setPosition(x, y);
         return;
     }
 

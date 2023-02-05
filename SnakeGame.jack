@@ -1,13 +1,15 @@
 class SnakeGame {
     field Snake snake;
     field Mouse mouse;
+    field Utils utils;
     field int direction;
     field boolean exit;
 
     constructor SnakeGame new() {
+        let utils = Utils.new();
         let snake = Snake.new(200, 200);
         let direction = 0;
-        let mouse = Mouse.new(40, 40);
+        let mouse = Mouse.new(utils, 40, 40);
         let exit = false;
         return this;
     }
@@ -15,8 +17,17 @@ class SnakeGame {
     method void dispose() {
         do snake.dispose();
         do mouse.dispose();
+        do utils.dispose();
         do Memory.deAlloc(this);
         return;
+    }
+
+    method boolean isSnakeOnMouse() {
+        if (snake.getX() = mouse.getX()
+            & snake.getY() = mouse.getY()) {
+            return true;
+        }
+        return false;
     }
 
     method void moveSquare() {
@@ -27,11 +38,13 @@ class SnakeGame {
         if (direction = 3) { do snake.moveLeft(); }
         if (direction = 4) { do snake.moveRight(); }
 
-        let mouseCaught = do isSnakeOnMouse();
+        let mouseCaught = isSnakeOnMouse();
         if (mouseCaught) {
             do snake.addLink();
             do mouse.relocate();
         }
+
+        do mouse.draw();
 
         do Sys.wait(100);
 
@@ -43,7 +56,7 @@ class SnakeGame {
 
         while (~exit) {
             while (key = 0) {
-                let key = Keyboard.keyPressed();
+                let key = utils.keyPressed();
                 do moveSquare();
             }
             if (key = 81)  { let exit = true; }     // q key
@@ -53,7 +66,7 @@ class SnakeGame {
             if (key = 132) { let direction = 4; }   // right arrow
 
             while (~(key = 0)) {
-                let key = Keyboard.keyPressed();
+                let key = utils.keyPressed();
                 do moveSquare();
             }
         }
