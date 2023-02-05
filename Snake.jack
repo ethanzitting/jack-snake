@@ -9,7 +9,7 @@ class Snake {
         let size = 10;
         do draw();
 
-        let child = Link.new(x - 10, y, 2);
+        let child = Link.new(x - size, y, 2);
 
         return this;
     }
@@ -17,6 +17,11 @@ class Snake {
     method void dispose() {
         do child.dispose();
         do Memory.deAlloc(this);
+        return;
+    }
+
+    method void addLink() {
+        do child.addLink();
         return;
     }
 
@@ -55,28 +60,28 @@ class Snake {
 
     method void moveUp() {
         if (y > 21) {
-            do setPosition(x, y - 10);
+            do setPosition(x, y - size);
         }
         return;
     }
 
     method void moveRight() {
         if (x < 500) {
-            do setPosition(x + 10, y);
+            do setPosition(x + size, y);
         }
         return;
     }
 
     method void moveDown() {
         if (y < 240) {
-            do setPosition(x, y + 10);
+            do setPosition(x, y + size);
         }
         return;
     }
 
     method void moveLeft() {
         if (x > 21) {
-            do setPosition(x - 10, y);
+            do setPosition(x - size, y);
         }
         return;
     }

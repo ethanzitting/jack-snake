@@ -1,23 +1,33 @@
 class Link {
-    field int x, y, size;
+    field int x, y, size, descendants;
     field Link child;
 
     constructor Link new(
         int newX,
         int newY,
-        int descendants
+        int newDescendants
     ) {
+        let size = 10;
+
         let x = newX;
         let y = newY;
-        let size = 10;
+        let descendants = newDescendants;
 
         do draw();
 
         if (descendants > 0) {
-            let child = Link.new(x - 10, y, descendants - 1);
+            let child = Link.new(x - size, y, descendants - 1);
         }
 
         return this;
+    }
+
+    method void addLink() {
+        if (descendants = 0) {
+            let child = Link.new(x - size, y, 0);
+        }
+        let descendants = descendants + 1;
+        return;
     }
 
     method void dispose() {

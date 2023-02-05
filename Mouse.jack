@@ -1,0 +1,49 @@
+class Mouse {
+    field int x, y, size;
+
+    constructor Mouse new(int newX, int newY) {
+        let x = newX;
+        let y = newY;
+
+        let size = 10;
+
+        do draw();
+
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void relocate() {
+        return;
+    }
+
+    method void drawSize() {
+        do Screen.drawRectangle(x, y, x + size, y + size);
+        return;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do drawSize();
+        return;
+    }
+
+    method void erase() {
+        do Screen.setColor(false);
+        do drawSize();
+        return;
+    }
+
+    method void setPosition(int argX, int argY) {
+        do erase();
+        let x = argX;
+        let y = argY;
+        do draw();
+
+        return;
+    }
+}
