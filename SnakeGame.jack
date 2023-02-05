@@ -25,12 +25,11 @@ class SnakeGame {
    }
 
    method void run() {
-      var char key;  // the key currently pressed by the user
+      var char key;
       var boolean exit;
       let exit = false;
       
       while (~exit) {
-         // waits for a key to be pressed
          while (key = 0) {
             let key = Keyboard.keyPressed();
             do moveSquare();
@@ -41,7 +40,6 @@ class SnakeGame {
          if (key = 130) { let direction = 3; }   // left arrow
          if (key = 132) { let direction = 4; }   // right arrow
 
-         // waits for the key to be released
          while (~(key = 0)) {
             let key = Keyboard.keyPressed();
             do moveSquare();

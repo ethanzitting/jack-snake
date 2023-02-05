@@ -1,7 +1,7 @@
 class Snake {
     field int x, y;
     field int size;
-    field Array tail;
+    field Link child;
 
     constructor Snake new(int Ax, int Ay) {
         let x = Ax;
@@ -9,16 +9,13 @@ class Snake {
         let size = 10;
         do draw();
 
-        let tail = Array.new(3);
-        let tail[0] = Square.new(x, y - 10);
+        let child = Link.new(x - 10, y, 2);
 
         return this;
     }
 
     method void dispose() {
-        var Square square;
-        let square = tail[0];
-        do square.dispose();
+        do child.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -41,9 +38,7 @@ class Snake {
     }
 
     method void setPosition(int argX, int argY) {
-        var int prevX;
-        var int prevY;
-        var Square square;
+        var int prevX, prevY;
 
         let prevX = x;
         let prevY = y;
@@ -53,8 +48,7 @@ class Snake {
         let y = argY;
         do draw();
 
-        let square = tail[0];
-        do square.setPosition(prevX, prevY);
+        do child.setPosition(prevX, prevY);
 
         return;
     }
